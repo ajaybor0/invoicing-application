@@ -1,7 +1,6 @@
 const path = require('path');
 const express = require('express');
 require('dotenv').config();
-const cookieParser = require('cookie-parser');
 const cors = require('cors');
 
 const { notFound, errorHandler } = require('./middleware/errorMiddleware');
@@ -18,7 +17,6 @@ connectDB();
 
 const app = express();
 
-app.use(cookieParser());
 // Enable CORS middleware
 app.use(cors());
 app.use(express.json());
