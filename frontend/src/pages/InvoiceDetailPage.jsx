@@ -107,6 +107,7 @@ const InvoiceDetail = () => {
                 Delete
               </MenuItem>
               <MenuItem
+                disabled={invoice?.status}
                 onClick={() => {
                   handleInvoiceToPaid(invoiceId), handleMenuClose();
                 }}
