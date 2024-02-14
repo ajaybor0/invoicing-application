@@ -5,7 +5,8 @@ const {
   createInvoice,
   getInvoices,
   getInvoice,
-  sendInvoice
+  sendInvoice,
+  updateInvoiceToPaid
 } = require('../controllers/invoiceController');
 
 const router = express.Router();
@@ -13,5 +14,6 @@ const router = express.Router();
 router.route('/').post(protect, createInvoice).get(protect, getInvoices);
 router.get('/:id', protect, getInvoice);
 router.post('/send-invoice/:id', protect, sendInvoice);
+router.put('/pay/:id', protect, updateInvoiceToPaid);
 
 module.exports = router;

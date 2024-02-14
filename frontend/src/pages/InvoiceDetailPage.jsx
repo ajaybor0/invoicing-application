@@ -17,7 +17,8 @@ import { useNavigate, useParams } from 'react-router-dom';
 
 import {
   useGetInvoiceQuery,
-  useSendInvoiceMutation
+  useSendInvoiceMutation,
+  useUpdateInvoiceToPaidMutation
 } from '../slices/invoiceApiSlice';
 import addCurrency from '../utils/addCurrency';
 import { BASE_URL } from '../constants';
@@ -34,6 +35,7 @@ const InvoiceDetail = () => {
 
   const { data: invoice } = useGetInvoiceQuery(invoiceId);
   const [sendInvoice, { isLoading }] = useSendInvoiceMutation();
+  const [updateInvoiceToPaid] = useUpdateInvoiceToPaidMutation();
 
   const handleMenuClick = e => {
     setMenuOpen(true);
@@ -43,6 +45,16 @@ const InvoiceDetail = () => {
   const handleMenuClose = () => {
     setMenuOpen(false);
     setAnchorEl(null);
+  };
+
+  const handleInvoiceToPaid = async invoiceId => {
+    try {
+      await updateInvoiceToPaid(invoiceId).unwrap();
+      console.log('Updated successfully');
+      navigate('/invoices');
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   const sendInvoiceHandler = async invoiceId => {
@@ -94,7 +106,11 @@ const InvoiceDetail = () => {
                 <Delete sx={{ marginRight: 2 }} />
                 Delete
               </MenuItem>
-              <MenuItem onClick={handleMenuClose}>
+              <MenuItem
+                onClick={() => {
+                  handleInvoiceToPaid(invoiceId), handleMenuClose();
+                }}
+              >
                 <Paid sx={{ marginRight: 2 }} />
                 Mark as paid
               </MenuItem>

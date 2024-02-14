@@ -75,6 +75,30 @@ const getInvoice = async (req, res, next) => {
   }
 };
 
+// @desc     Update invoice to paid
+// @method   PUT
+// @endpoint /api/v1/invoices/pay/:id
+// @access   Private
+const updateInvoiceToPaid = async (req, res) => {
+  try {
+    const { id: invoiceId } = req.params;
+    const invoice = await Invoice.findById(invoiceId);
+
+    if (!invoice) {
+      res.statusCode = 404;
+      throw new Error('Invoice not found!');
+    }
+
+    invoice.status = true;
+
+    const updatedInvoice = await invoice.save();
+
+    res.status(201).json(updatedInvoice);
+  } catch (error) {
+    next(error);
+  }
+};
+
 // @desc     Send invoice
 // @method   POST
 // @endpoint /api/invoices/send-invoice/:id
@@ -194,4 +218,10 @@ ${user.name}`;
   }
 };
 
-module.exports = { createInvoice, getInvoices, getInvoice, sendInvoice };
+module.exports = {
+  createInvoice,
+  getInvoices,
+  getInvoice,
+  sendInvoice,
+  updateInvoiceToPaid
+};
