@@ -14,6 +14,8 @@ import {
   useUploadClientImageMutation
 } from '../slices/clientApiSlice';
 
+import { BASE_URL } from '../constants';
+
 const ClientFormPage = () => {
   const [name, setName] = useState('');
   const [email, setEmail] = useState('');
@@ -100,7 +102,7 @@ const ClientFormPage = () => {
                     marginBottom: 4,
                     marginTop: 1
                   }}
-                  src={picture}
+                  srcSet={`${BASE_URL}${picture}`}
                 />
               ) : (
                 <TextField

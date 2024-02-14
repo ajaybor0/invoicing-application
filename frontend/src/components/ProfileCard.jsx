@@ -11,6 +11,7 @@ import {
   Card
 } from '@mui/material';
 import { Delete, Edit, MoreVert } from '@mui/icons-material';
+import { BASE_URL } from '../constants';
 
 const ProfileCard = ({
   menuOpen,
@@ -46,7 +47,7 @@ const ProfileCard = ({
                   <Grid item md={4}>
                     <Avatar
                       variant='square'
-                      src={client.picture}
+                      srcSet={`${BASE_URL}${client.picture}`}
                       alt={client.name}
                       sx={{ borderRadius: 1 }}
                     />

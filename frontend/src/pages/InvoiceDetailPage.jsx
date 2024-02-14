@@ -1,4 +1,4 @@
-import { Check, Delete, Edit, MoreVert } from '@mui/icons-material';
+import { Delete, Download, Edit, MoreVert, Paid } from '@mui/icons-material';
 import {
   Avatar,
   Box,
@@ -20,6 +20,9 @@ import {
   useSendInvoiceMutation
 } from '../slices/invoiceApiSlice';
 import addCurrency from '../utils/addCurrency';
+import { BASE_URL } from '../constants';
+
+import generatePDF from '../utils/generatePDF';
 
 const InvoiceDetail = () => {
   const [menuOpen, setMenuOpen] = useState(false);
@@ -92,8 +95,17 @@ const InvoiceDetail = () => {
                 Delete
               </MenuItem>
               <MenuItem onClick={handleMenuClose}>
-                <Check sx={{ marginRight: 2 }} />
+                <Paid sx={{ marginRight: 2 }} />
                 Mark as paid
+              </MenuItem>
+              <MenuItem
+                onClick={() => {
+                  generatePDF(invoice);
+                  handleMenuClose();
+                }}
+              >
+                <Download sx={{ marginRight: 2 }} />
+                Download PDF
               </MenuItem>
             </Menu>
           </Box>
@@ -112,7 +124,7 @@ const InvoiceDetail = () => {
               <Stack direction={'row'} alignItems={'center'}>
                 <Avatar
                   variant='square'
-                  srcSet={invoice?.clientId.picture}
+                  srcSet={`${BASE_URL}${invoice?.clientId.picture}`}
                   alt={invoice?.clientId.name}
                   sx={{ borderRadius: 1, marginRight: 1 }}
                 />
