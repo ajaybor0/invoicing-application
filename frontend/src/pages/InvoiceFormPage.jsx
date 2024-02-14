@@ -17,6 +17,7 @@ import { Form, useNavigate } from 'react-router-dom';
 import { useGetClientsQuery } from '../slices/clientApiSlice';
 import { useCreateInvoiceMutation } from '../slices/invoiceApiSlice';
 import addCurrency from '../utils/addCurrency';
+import { BASE_URL } from '../constants';
 
 const InvoiceFormPage = () => {
   const [items, setItems] = useState([{ item: '', rate: 0, hours: 0 }]);
@@ -88,7 +89,7 @@ const InvoiceFormPage = () => {
                       <Stack direction={'row'} alignItems={'center'}>
                         <Avatar
                           variant='square'
-                          srcSet={client.picture}
+                          srcSet={`${BASE_URL}${client.picture}`}
                           alt={client.name}
                           sx={{ marginRight: 1, borderRadius: 1 }}
                         />
