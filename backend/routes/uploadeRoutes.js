@@ -36,7 +36,7 @@ router.post('/', upload, (req, res) => {
   }
   res
     .status(200)
-    .json({ message: 'Image uploaded', imageUrl: `/${req.file.filename}` });
+    .json({ message: 'Image uploaded', imageUrl: `/${req.file.path}` });
 });
 
 module.exports = router;

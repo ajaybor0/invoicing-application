@@ -18,16 +18,11 @@ connectDB();
 const app = express();
 
 // Enable CORS middleware
-app.use(
-  cors({
-    origin: ['https://invoicing-application.vercel.app'],
-    methods: ['POST', 'GET', 'PUT', 'DELETE'],
-    credentials: true
-  })
-);
+app.use(cors());
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-app.use(express.static('uploads'));
+app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
 
 app.get('/', (req, res) => {
   res.send('Hello, World!');
