@@ -29,14 +29,14 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({ storage, fileFilter }).single('image');
 
 router.post('/', upload, (req, res) => {
-  console.log(req.file);
+  console.log(req.file.filename);
   if (!req.file) {
     res.statusCode = 400;
     throw new Error('No file uploaded');
   }
   res
     .status(200)
-    .json({ message: 'Image uploaded', imageUrl: `/${req.file.path}` });
+    .json({ message: 'Image uploaded', imageUrl: `/${req.file.filename}` });
 });
 
 module.exports = router;
